@@ -33,4 +33,38 @@ class BasicReadingTimeCest {
 
 		$I->see( "A post ({$expected_time})" );
 	}
+
+	/**
+	 * It should omit the reading time if post content is empty
+	 *
+	 * @test
+	 */
+	public function should_omit_the_reading_time_if_post_content_is_empty( AcceptanceTester $I ) {
+		$post_id = $I->havePostInDatabase( [
+			'post_title'   => 'A post',
+			'post_content' => '',
+		] );
+
+		$I->amOnPage( "/?p={$post_id}" );
+
+		$I->see( "A post" );
+	}
+
+	/**
+	 * It should expose the reading time on posts only
+	 *
+	 * @test
+	 */
+	public function should_expose_the_reading_time_on_posts_only( AcceptanceTester $I ) {
+		$content = implode( ' ', array_fill( 0, 550, 'lorem' ) );
+		$page_id = $I->havePageInDatabase( [
+			'post_title'   => 'A page',
+			'post_content' => $content,
+		] );
+
+		$I->amOnPage( "/?p={$page_id}" );
+
+		$I->see( "A page" );
+	}
+
 }
