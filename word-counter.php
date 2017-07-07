@@ -9,3 +9,7 @@ Author URI: http://example.com
 Text Domain: word-counter
 Domain Path: /languages
 */
+
+add_filter( 'the_title', function ( $title ) {
+	return "{$title} (1m)";
+} );
