@@ -10,6 +10,14 @@ Text Domain: word-counter
 Domain Path: /languages
 */
 
-add_filter( 'the_title', function ( $title ) {
-	return "{$title} (1m)";
-} );
+add_filter( 'the_title', function ( $title, $post_id ) {
+	$post = get_post( $post_id );
+
+	$words_per_minute = 275;
+	$content          = apply_filters( 'the_content', $post->post_content );
+	$words            = str_word_count( strip_tags( $content, '' ) );
+
+	$minutes = ceil( $words / $words_per_minute );
+
+	return "{$title} ({$minutes}m)";
+}, 10, 2 );
