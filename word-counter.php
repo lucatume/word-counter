@@ -9,6 +9,7 @@ Author URI: http://example.com
 Text Domain: word-counter
 Domain Path: /languages
 */
+include_once 'src/Counter.php';
 
 register_activation_hook( __FILE__, function () {
 	update_option( 'wcounter_average_wpm', 'n/a' );
@@ -30,7 +31,9 @@ add_action( 'wp_insert_post', function ( $post_id, WP_Post $post, $update ) {
 	}
 
 	$content = apply_filters( 'the_content', $post->post_content );
-	$words   = str_word_count( strip_tags( $content, '' ) );
+
+	$counter = new \WCounter\Counter();
+	$words = $counter->count_words($content);
 
 	if ( $words === 0 ) {
 		return;
@@ -49,17 +52,10 @@ add_filter( 'the_title', function ( $title, $post_id ) {
 		return $title;
 	}
 
-	/**
-	 * Filters the words per minute value.
-	 *
-	 * @param int $words_per_minute
-	 */
-	$words_per_minute = apply_filters( 'wcounter_wpm_value', 275 );
-
 	$content = apply_filters( 'the_content', $post->post_content );
-	$words   = str_word_count( strip_tags( $content, '' ) );
 
-	$reading_time = ceil( $words / $words_per_minute );
+	$counter = new \WCounter\Counter();
+	$reading_time = $counter->get_reading_time_for( $content );
 
 	return $reading_time > 0
 		? "{$title} ({$reading_time}m)"
