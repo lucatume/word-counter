@@ -1,0 +1,22 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests that require WordPress functions and classes.
+
+actor: WpunitTester
+modules:
+    enabled:
+        - WPLoader
+        - \Helper\Wpunit
+    config:
+        WPLoader:
+            wpRootFolder: "/vagrant/www/wordpress-default/public_html"
+            dbName: "wordpress_unit_tests"
+            dbHost: "localhost"
+            dbUser: "root"
+            dbPassword: "root"
+            tablePrefix: "wp_"
+            domain: "local.wordpress.dev"
+            adminEmail: "admin@local.wordpress.dev"
+            title: "Test"        
+            plugins: ['word-counter/word-counter.php']
+            activatePlugins: ['word-counter/word-counter.php']
