@@ -10,11 +10,15 @@ Text Domain: word-counter
 Domain Path: /languages
 */
 
+register_activation_hook( __FILE__, function () {
+	update_option( 'wcounter_average_wpm', 'n/a' );
+} );
+
 add_filter( 'the_title', function ( $title, $post_id ) {
 	$post = get_post( $post_id );
 
 	if ( $post->post_type !== 'post' ) {
-		return;
+		return $title;
 	}
 
 	$words_per_minute = 275;
