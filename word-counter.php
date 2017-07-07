@@ -49,9 +49,15 @@ add_filter( 'the_title', function ( $title, $post_id ) {
 		return $title;
 	}
 
-	$words_per_minute = 275;
-	$content          = apply_filters( 'the_content', $post->post_content );
-	$words            = str_word_count( strip_tags( $content, '' ) );
+	/**
+	 * Filters the words per minute value.
+	 *
+	 * @param int $words_per_minute
+	 */
+	$words_per_minute = apply_filters( 'wcounter_wpm_value', 275 );
+
+	$content = apply_filters( 'the_content', $post->post_content );
+	$words   = str_word_count( strip_tags( $content, '' ) );
 
 	$reading_time = ceil( $words / $words_per_minute );
 
