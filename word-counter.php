@@ -9,7 +9,9 @@ Author URI: http://example.com
 Text Domain: word-counter
 Domain Path: /languages
 */
+
 include_once 'src/Counter.php';
+include_once 'src/WP.php';
 
 register_activation_hook( __FILE__, function () {
 	update_option( 'wcounter_average_wpm', 'n/a' );
@@ -32,8 +34,8 @@ add_action( 'wp_insert_post', function ( $post_id, WP_Post $post, $update ) {
 
 	$content = apply_filters( 'the_content', $post->post_content );
 
-	$counter = new \WCounter\Counter();
-	$words = $counter->count_words($content);
+	$counter = new \WCounter\Counter( new \WCounter\WP() );
+	$words   = $counter->count_words( $content );
 
 	if ( $words === 0 ) {
 		return;
@@ -54,7 +56,7 @@ add_filter( 'the_title', function ( $title, $post_id ) {
 
 	$content = apply_filters( 'the_content', $post->post_content );
 
-	$counter = new \WCounter\Counter();
+	$counter      = new \WCounter\Counter( new \WCounter\WP() );
 	$reading_time = $counter->get_reading_time_for( $content );
 
 	return $reading_time > 0

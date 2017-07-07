@@ -3,9 +3,17 @@
 namespace WCounter;
 
 class Counter {
+	/**
+	 * @var \WCounter\WP
+	 */
+	protected $wp;
+
+	public function __construct( WP $wp ) {
+		$this->wp = $wp;
+	}
 
 	public function count_words( $content ) {
-		return str_word_count( strip_tags( $content, '' ) );
+		return str_word_count( $this->wp->strip_tags( $content, '' ) );
 	}
 
 	public function get_reading_time_for( $content ) {
@@ -14,7 +22,7 @@ class Counter {
 		 *
 		 * @param int $words_per_minute
 		 */
-		$words_per_minute = apply_filters( 'wcounter_wpm_value', 275 );
+		$words_per_minute = $this->wp->apply_filters( 'wcounter_wpm_value', 275 );
 
 		$words = $this->count_words( $content );
 
