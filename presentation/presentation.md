@@ -153,7 +153,7 @@ Initialize wp-browser with the `codecept init wpbrowser` and answer the question
 # Create a starting database dump
 
 ```bash
-mkdir backup
+mkdir backups
 wp db export backups/db.backup.sql
 wp plugin deactivate $(wp plugin list --status=active --field=name)
 wp site empty --yes
@@ -289,7 +289,7 @@ Failures? Look into `tests/_output`...
 
 ---
 
-# What about user options?
+# Storing an option
 
 * we want to keep track of the average reading time of posts
 * it will boil down to setting an option (e.g. `wcounter_average_wpm`)
