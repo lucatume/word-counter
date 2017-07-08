@@ -320,7 +320,7 @@ I draw the line where I have to look "under the hood" to make an assertion.
 
 ```php
 class AverageWPMCest {
-	public function should_have_an_average_wpm_value_of_n_a_when_there_are_no_posts( FunctionalTester $I ) {
+	public function should_have_an_average_wpm_value_of_n_a( FunctionalTester $I ) {
 		$I->assertEquals( 'n/a', $I->grabOptionFromDatabase( 'wcounter_average_wpm' ) );
 	}
 }
