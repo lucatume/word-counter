@@ -1,4 +1,4 @@
-footer: @lucatume - Future WP, Milano 7/8/2017
+footer: @lucatume - Future WP, Milano 7/8/2017 - https://github.com/lucatume/word-counter
 slidenumbers: true
 
 # TDD in WordPress with Codeception and wp-browser from scratch
@@ -40,6 +40,14 @@ And I have post with 275 words in it
 When I visit the single post page
 Then I should see '1m' as estimated reading time beside the title 
 ```
+
+---
+
+# The repo
+
+[https://github.com/lucatume/word-counter](https://github.com/lucatume/word-counter) 
+
+Today **final** code.
 
 ---
 
