@@ -48,6 +48,7 @@ class BasicReadingTimeCest {
 		$I->amOnPage( "/?p={$post_id}" );
 
 		$I->see( "A post" );
+		$I->dontSee( "A post (" );
 	}
 
 	/**
@@ -65,6 +66,7 @@ class BasicReadingTimeCest {
 		$I->amOnPage( "/?p={$page_id}" );
 
 		$I->see( "A page" );
+		$I->dontSee( "A page (" );
 	}
 
 }
